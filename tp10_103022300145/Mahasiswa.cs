@@ -2,12 +2,14 @@ namespace tp10_103022300145
 {
     public class Mahasiswa
     {
-        public DateOnly Date { get; set; }
+        public string nama { get; set; }
 
-        public int TemperatureC { get; set; }
+        public string nim { get; set; }
 
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-
-        public string? Summary { get; set; }
+        public Mahasiswa(string nama, string nim)
+        {
+            this.nama = nama;
+            this.nim = nim;
+        }
     }
 }

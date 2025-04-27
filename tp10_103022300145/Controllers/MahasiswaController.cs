@@ -1,32 +1,50 @@
+
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using tp10_103022300145;
 
-namespace tp10_103022300145.Controllers;
-
-[ApiController]
-[Route("[controller]")]
-public class MahasiswaController : ControllerBase
+namespace tp10_103022300145.Controllers
 {
-    private static readonly string[] Summaries = new[]
+    [Route("api/[controller]")]
+    [ApiController]
+    public class MahasiswaController : ControllerBase
     {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
-    private readonly ILogger<MahasiswaController> _logger;
-
-    public MahasiswaController(ILogger<MahasiswaController> logger)
-    {
-        _logger = logger;
-    }
-
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<Mahasiswa> Get()
-    {
-        return Enumerable.Range(1, 5).Select(index => new Mahasiswa
+        public static readonly List<Mahasiswa> mahasiswaL = new List<Mahasiswa>
         {
-            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+            new Mahasiswa("Elvina Nilysti Huang", "103022300145"),
+            new Mahasiswa("Ahmad Naufal Alghifari", "103022300006"),
+            new Mahasiswa("Maulana Jidan Azizi", "103022300083"),
+            new Mahasiswa("Wildan Nabil Ramdhany", "103022300095"),
+            new Mahasiswa("Abizar Tsaqif Abrar", "103022330128"),
+            new Mahasiswa("Mikdam Huda", "1302223034"),
+            new Mahasiswa("Hafidz Zuhayr Shidiq", "103022300019")
+        };
+
+        [HttpGet]
+        public IEnumerable<Mahasiswa> Get()
+        {
+            return mahasiswaL;
+        }
+
+        [HttpGet("{index}")]
+
+        public Mahasiswa Get(int index)
+        {
+            return mahasiswaL[index];
+        }
+
+        [HttpPost]
+
+        public void Post([FromBody] Mahasiswa value)
+        {
+            mahasiswaL.Add(value);
+        }
+
+        [HttpDelete("{index}")]
+
+        public void Delete(int index)
+        {
+            mahasiswaL.RemoveAt(index);
+        }
     }
 }
